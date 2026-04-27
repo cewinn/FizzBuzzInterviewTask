@@ -1,7 +1,7 @@
 ﻿namespace FizzBuzzLib
 {
      //inherit interface - cw
-    public class FizzBuzz : IFizzBuzz
+    public class FizzBuzz : IFizzBuzz, IFizzBuzzRange
     {
         public string DemoMethod()
         {
@@ -43,5 +43,38 @@
             }
 
         }
+
+      //implement FizzBuzzRange
+      public IEnumerable<string> FizzBuzzValuesForRange(int start, int end)
+      {
+          //create empty list for return - cw
+          List<string> fizzBuzzedString = new List<string>();
+     
+          try
+          {     
+              //create range and cast to int - cw
+              int[] intArray = Enumerable.Range(start, end).ToArray();
+     
+              //enumerate through and call FizzBuzzifyAnInt - cw
+              //add returned value to list - cw
+              foreach (int i in intArray)
+              {
+                  var fizzed = FizzBuzzifyAnInt(i);
+                  if (fizzed != null)
+                  {
+                      fizzBuzzedString.Add(fizzed);
+                  }
+              }
+     
+              //return list as enumerable implicit - cw
+              return fizzBuzzedString;
+          }
+          catch (Exception ex)
+          {
+              //exception return message - cw
+              fizzBuzzedString.Add(ex.Message);
+              return fizzBuzzedString;
+          }
+      }
     }
 }
