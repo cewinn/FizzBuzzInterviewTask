@@ -3,6 +3,8 @@
      //inherit interface - cw
     public class FizzBuzz : IFizzBuzz, IFizzBuzzRange
     {
+
+        public Dictionary<int, string>? ReplacementPairs { get; set; }
         public string DemoMethod()
         {
             // Feel free to delete this method
@@ -10,40 +12,49 @@
             return "Hello World";
         }
 
-        
-        //implement interface - cw
-        public string FizzBuzzifyAnInt(int input)
-        {
-            try
-            {
-                //test first for both conditions - cw
-                if (input % 3 == 0 && input % 5 == 0)
-                {
-                    return "FizzBuzz";
-                }
-                //test only for divisable by three - cw
-                else if (input % 3 == 0)
-                {
-                    return "Fizz";
-                }
-                //test only for divisable by five - cw
-                else if (input % 5 == 0)
-                {
-                    return "Buzz";
-                }
-                //if tests fail, return int as string
-                else
-                {
-                    return input.ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+      //set parameter to recieve range of 1-10 - cw
+      //set return to string array, e.g. "1", "2", "Fizz"...
+      //method called in program - second commit for question due to GitHub Online
+      //Instructions read to require a string[] and test a range- Result sequence should be {"1", "Even", "3", "Even", "5", "Even", "7", "Even", "9", "Even"}
+      public string[] FizzBuzzifyAnInt(int start, int end )
+      {
+     
+         
+              if (ReplacementPairs.Count() == 0)
+              {
+                  ReplacementPairs = (new Dictionary<int, string>() { { 3, "Fizz" }, { 5, "Buzz" } });
+              }
 
-        }
+              //create range for test 1 -10 and cast to int - cw
+              int[] testArray = Enumerable.Range(start, end).ToArray();
+              string[] returnValues = new string[10];
+     
+              foreach (var number in testArray)
+              {
+                  if (!ReplacementPairs.ContainsKey(number))
+                  {
+                      returnValues[number - 1] = number.ToString();
+                  }
+     
+                  else {
+                      foreach (var pair in ReplacementPairs) {
+                          if (number % pair.Key == 0) {
+                               if (returnValues[pair.Key - 1].Length == 0)
+                               {
+                                   returnValues[pair.Key - 1] = pair.Value;
+                               }
+                               else
+                               {
+                                   returnValues[pair.Key - 1] = returnValues[pair.Key - 1] + pair.Value;
+                               }
+                          }
+                      }
 
+                  }
+              }
+     
+              return returnValues;
+      }
       //implement FizzBuzzRange
       public IEnumerable<string> FizzBuzzValuesForRange(int start, int end)
       {
