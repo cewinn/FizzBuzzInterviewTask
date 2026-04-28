@@ -10,6 +10,9 @@
         /// </summary>
         /// <param name="input">The integer to convert</param>
         /// <returns>string that contains Fizz when divisible by 3, Buzz when divisible by 5, FizzBuzz when divisible by both, or the <paramref name="input"/> as a string if none of the conditions apply.</returns>
-        string FizzBuzzifyAnInt(int input);
+        //string FizzBuzzifyAnInt(int input);
+
+        //final question - cw
+        string[] FizzBuzzifyAnInt(int start, int end);
     }
 }
